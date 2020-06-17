@@ -30,17 +30,12 @@ services:
       - data
 
   db:
-    image: mysql
-    command: --default-authentication-plugin=mysql_native_password
+    image: harianto/mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: test
-
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./db/storage:/var/lib/mysql
 
   dbadmin:
     image: phpmyadmin/phpmyadmin
