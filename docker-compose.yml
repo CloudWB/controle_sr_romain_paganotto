@@ -1,4 +1,4 @@
-version: '3'
+version: '2'
 
 services:
   nginx:
@@ -30,12 +30,17 @@ services:
       - data
 
   db:
-    image: harianto/mysql
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
-    volumes:
-      - ./db/storage:/var/lib/mysql
+      MYSQL_ROOT_PASSWORD: test
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
 
   dbadmin:
     image: phpmyadmin/phpmyadmin
