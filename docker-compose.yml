@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 services:
   nginx:
@@ -30,10 +30,12 @@ services:
       - data
 
   db:
-    image: mariadb
+    image: harianto/mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./db/storage:/var/lib/mysql
 
   dbadmin:
     image: phpmyadmin/phpmyadmin
