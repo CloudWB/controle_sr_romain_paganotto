@@ -5,8 +5,6 @@ services:
     image: nginx:alpine
     restart: always
     links:
-      - fpm5-6-23
-      - fpm7-0-8
       - fpm-ext7-0-8
     ports:
       - "80:80"
@@ -15,18 +13,6 @@ services:
       - ./nginx/enabled:/etc/nginx/conf.d
       - ./nginx/snippets:/nginx/snippets
       - ./nginx/certificates:/nginx/certificates
-    volumes_from:
-      - data
-
-  fpm5-6-23:
-    image: php:5.6.23-fpm-alpine
-    restart: always
-    volumes_from:
-      - data
-
-  fpm7-0-8:
-    image: php:7.0.8-fpm-alpine
-    restart: always
     volumes_from:
       - data
 
@@ -58,9 +44,3 @@ services:
     volumes:
       - ./vhosts:/vhosts
       - ./tmp:/tmp
-
-# create network: docker network create xnmp-network
-networks:
-  default:
-    external:
-      name: xnmp-network
