@@ -12,5 +12,3 @@ RUN apk add --no-cache --update \
     && rm -rf /tmp/* /var/cache/apk/* \
     && echo "=============================================" \
     && php -m
-
-RUN chmod +x ./config/start.sh
