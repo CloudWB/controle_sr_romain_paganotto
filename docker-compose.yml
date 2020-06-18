@@ -46,14 +46,15 @@ services:
     # ports:
     #   - "8080:80"
 
+  config:
+    build:
+      context: ./dockerfiles
+      dockerfiles: config.Dockerfile
+    restart: always
+
   data:
     image: alpine:latest
     command: echo "READY!!!"
     volumes:
       - ./vhosts:/vhosts
       - ./tmp:/tmp
-
-  config:
-    build:
-      context: ./dockerfiles
-      dockerfiles: config.Dockerfile
