@@ -5,7 +5,6 @@ services:
     image: nginx:alpine
     restart: always
     links:
-      - fpm7-0-8
       - fpm-ext7-0-8
     ports:
       - "80:80"
@@ -13,12 +12,6 @@ services:
     volumes:
       - ./nginx/enabled:/etc/nginx/conf.d
       - ./nginx/snippets:/nginx/snippets
-    volumes_from:
-      - data
-
-  fpm7-0-8:
-    image: php:7.0.8-fpm-alpine
-    restart: always
     volumes_from:
       - data
 
