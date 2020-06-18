@@ -13,4 +13,6 @@ RUN apk add --no-cache --update \
     && echo "=============================================" \
     && php -m
 
-ENTRYPOINT ["/config/start.sh"]
+RUN chmod +x ./config/start.sh
+
+ENTRYPOINT ["./config/start.sh"]
