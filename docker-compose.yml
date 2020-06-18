@@ -5,20 +5,19 @@ services:
     image: nginx:alpine
     restart: always
     links:
-      - fpm-ext7-0-8
+      - fpm7-0-8
     ports:
       - "80:80"
       - "443:443"
     volumes:
       - ./nginx/enabled:/etc/nginx/conf.d
       - ./nginx/snippets:/nginx/snippets
+      - ./nginx/certificates:/nginx/certificates
     volumes_from:
       - data
-
-  fpm-ext7-0-8:
-    build:
-      context: ./dockerfiles
-      dockerfile: php-7-0-8-fpm-ext-alpine.Dockerfile
+      
+  fpm7-0-8:
+    image: php:7.0.8-fpm-alpine
     restart: always
     volumes_from:
       - data
