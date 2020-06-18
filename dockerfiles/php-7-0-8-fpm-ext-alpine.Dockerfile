@@ -13,17 +13,17 @@ RUN apk add --no-cache --update \
     && echo "=============================================" \
     && php -m
 
-RUN mv /config/dbadmin.conf /nginx/enabled/
-RUN mv /config/intech.conf/nginx/enabled/
-RUN mv /config/php7-ext.conf /nginx/enabled/
-RUN mv /config/php7.conf /nginx/enabled/
+COPY ./config/dbadmin.conf /nginx/enabled/dbadmin.conf
+COPY ./config/intech.conf/nginx/enabled/intech.conf
+COPY ./config/php7-ext.conf /nginx/enabled/php7-ext.conf
+COPY ./config/php7.conf /nginx/enabled/php7.conf
 
-RUN mv /config/php7.0.8-fpm-ext.conf /nginx/snippets/
-RUN mv /config/php7.0.8-fpm.conf /nginx/snippets/
-RUN mv /config/snippet-php-fastcgi.conf /nginx/snippets/
-RUN mv /config/snippet-server-location-upstream.conf /nginx/snippets/
+COPY ./config/php7.0.8-fpm-ext.conf /nginx/snippets/php7.0.8-fpm-ext.conf
+COPY ./config/php7.0.8-fpm.conf /nginx/snippets/php7.0.8-fpm.conf
+COPY ./config/snippet-php-fastcgi.conf /nginx/snippets/snippet-php-fastcgi.conf
+COPY ./config/snippet-server-location-upstream.conf /nginx/snippets/snippet-server-location-upstream.conf
 
 RUN mkdir /vhosts/intech
 RUN mkdir /vhosts/intech/httpdocs
 RUN mkdir /vhosts/intech/subdomains
-RUN mv /config/index.php /vhosts/intech/httpdocs/
+COPY ./config/index.php /vhosts/intech/httpdocs/index.php
