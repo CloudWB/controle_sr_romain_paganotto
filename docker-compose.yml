@@ -5,7 +5,7 @@ services:
     image: nginx:alpine
     restart: always
     links:
-      - fpm-ext7-0-8
+      - fpm7-0-8
     ports:
       - "80:80"
       - "443:443"
@@ -15,11 +15,9 @@ services:
       - ./nginx/certificates:/nginx/certificates
     volumes_from:
       - data
-
-  fpm-ext7-0-8:
-    build:
-      context: ./dockerfiles
-      dockerfile: php-7-0-8-fpm-ext-alpine.Dockerfile
+      
+  fpm7-0-8:
+    image: php:7.0.8-fpm-alpine
     restart: always
     volumes_from:
       - data
@@ -37,10 +35,12 @@ services:
     restart: always
     depends_on:
       - db
+    # ports:
+    #   - "8080:80"
 
   data:
     image: alpine:latest
-    command: echo "--- Docker data volume READY."
+    command: echo "READY!!!"
     volumes:
       - ./vhosts:/vhosts
       - ./tmp:/tmp
