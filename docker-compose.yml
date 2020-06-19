@@ -40,6 +40,12 @@ services:
     # ports:
     #   - "8080:80"
 
+  bind9:
+    image: sameersbn/bind
+    restart: always
+    volumes:
+      - ./bind:/data \
+
   data:
     image: alpine:latest
     command: echo "READY!!!"
