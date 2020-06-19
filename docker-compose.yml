@@ -67,7 +67,11 @@ services:
       - ./tmp:/tmp
     networks:
       - monreseau
+      
+volumes:
+  monreseau:
+    driver: local
 
-  networks:
-    monreseau:
-      driver: bridge
+networks:
+  monreseau:
+    driver: bridge
