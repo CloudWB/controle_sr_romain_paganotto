@@ -41,10 +41,14 @@ services:
     #   - "8080:80"
 
   bind9:
-    image: sameersbn/bind
+    image: sameersbn/bind:9.16.1-20200524
     restart: always
+    ports:
+    - "53:53/udp"
+    - "53:53/tcp"
+    - "10000:10000/tcp"
     volumes:
-      - ./bind:/data \
+      - ./bind:/data
 
   data:
     image: alpine:latest
