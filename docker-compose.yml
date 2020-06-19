@@ -15,8 +15,6 @@ services:
       - ./nginx/certificates:/nginx/certificates
     volumes_from:
       - data
-    networks:
-      - monreseau
       
   fpm-ext7-0-8:
     build:
@@ -52,16 +50,12 @@ services:
     volumes:
       - ./bind:/data
       - ./bind/etc:/etc
-    networks:
-      - monreseau
-
+    volumes_from:
+      - data
+      
   data:
     image: alpine:latest
     command: echo "READY!!!"
     volumes:
       - ./vhosts:/vhosts
       - ./tmp:/tmp
-
-networks:
-  monreseau:
-    driver: bridge
