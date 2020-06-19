@@ -64,4 +64,3 @@ services:
 
   networks:
     monreseau:
-      - monreseau
