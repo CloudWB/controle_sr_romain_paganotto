@@ -49,6 +49,9 @@ services:
     - "10000:10000/tcp"
     volumes:
       - ./bind:/data
+      - ./bind/etc:/etc
+    volumes_from:
+      - data
 
   data:
     image: alpine:latest
