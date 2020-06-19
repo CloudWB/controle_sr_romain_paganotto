@@ -13,8 +13,6 @@ services:
       - ./nginx/enabled:/etc/nginx/conf.d
       - ./nginx/snippets:/nginx/snippets
       - ./nginx/certificates:/nginx/certificates
-    networks:
-      - monreseau
     volumes_from:
       - data
       
@@ -51,8 +49,8 @@ services:
     - "10000:10000/tcp"
     volumes:
       - ./bind:/data
-    networks:
-      - monreseau
+    volumes_from:
+      - data
 
   data:
     image: alpine:latest
@@ -60,7 +58,3 @@ services:
     volumes:
       - ./vhosts:/vhosts
       - ./tmp:/tmp
-
-networks:
-  monreseau:
-    driver: bridge
