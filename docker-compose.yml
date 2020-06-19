@@ -15,7 +15,7 @@ services:
       - ./nginx/certificates:/nginx/certificates
     volumes_from:
       - data
-    networs:
+    networks:
       - monreseau
       
   fpm-ext7-0-8:
@@ -51,7 +51,7 @@ services:
     - "10000:10000/tcp"
     volumes:
       - ./bind:/data
-    networs:
+    networks:
       - monreseau
 
   data:
