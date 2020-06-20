@@ -54,13 +54,13 @@ services:
 
   ftp:
     image: bluefoxicy/proftpd
-    cap_drop:
-      - net_raw
-      - mknod
-      - setpcap
-      - setfcap
-      - fowner
-      - dac_override
+  cap_drop:
+    - net_raw
+    - mknod
+    - setpcap
+    - setfcap
+    - fowner
+    - dac_override
     environment:
       PROFTPD_PASSIVE_PORTS: "50000-50030"
       PROFTPD_TLS: on
