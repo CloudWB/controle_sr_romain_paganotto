@@ -52,6 +52,35 @@ services:
     volumes_from:
       - data
 
+  ftp:
+    image: bluefoxicy/proftpd
+    cap_drop:
+      - net_raw
+      - mknod
+      - setpcap
+      - setfcap
+      - fowner
+      - dac_override
+    environment:
+      PROFTPD_PASSIVE_PORTS: "50000-50030"
+      PROFTPD_TLS: on
+      PROFTPD_AUTH_ORDER: "mod_auth_file.c"
+    ports:
+      - "21:21"
+      - "50000-50030:50000-50030"
+    volumes:
+      # FTP directory
+      - /var/docker/controlesr/ftp/site1/files/:/var/ftp
+      # Configuration
+      - /var/docker/controlesr/ftp/site1/config/auth.d/:/etc/proftpd/auth.d/
+      - /var/docker/controlesr/ftp/site1/config/conf.d/:/etc/proftpd/conf.d/
+      # keeping user.d/authfile/passwd and user.d/authfile/group
+      - /var/docker/controlesr/ftp/site1/config/user.d/:/etc/proftpd/user.d/
+      # ssl certificates
+      - /etc/ssl/certs/example.com.crt:/etc/ssl/certs/proftpd.crt:ro
+      - /etc/ssl/certs/example.com.chain.crt:/etc/ssl/certs/chain.crt:ro
+      - /etc/ssl/private/example.com.key:/etc/ssl/private/proftpd.key:ro
+
   data:
     image: alpine:latest
     command: echo "READY!!!"
