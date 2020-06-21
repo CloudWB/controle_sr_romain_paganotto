@@ -13,16 +13,14 @@ services:
       - ./nginx/enabled:/etc/nginx/conf.d
       - ./nginx/snippets:/nginx/snippets
       - ./nginx/certificates:/nginx/certificates
-    volumes_from:
-      - data
+    networks:
+      - monres
       
   fpm-ext7-0-8:
     build:
       context: ./dockerfiles
       dockerfile: php-7-0-8-fpm-ext-alpine.Dockerfile
     restart: always
-    volumes_from:
-      - data
 
   db:
     image: harianto/mysql
@@ -49,12 +47,10 @@ services:
     - "10000:10000/tcp"
     volumes:
       - ./bind:/data
+    networks:
+      - monres
 
-  data:
-    image: alpine:latest
-    command: echo "READY!!!"
-    volumes:
-      - ./vhosts:/vhosts
-      - ./tmp:/tmp
+networks:
+  monres:
 
 
