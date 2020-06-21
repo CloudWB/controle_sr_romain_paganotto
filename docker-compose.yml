@@ -52,5 +52,5 @@ services:
     networks:
       - monreseau
 
-  networks:
-    monreseau:
+networks:
+  monreseau:
