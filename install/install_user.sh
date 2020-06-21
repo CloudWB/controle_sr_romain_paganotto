@@ -62,6 +62,7 @@ echo "      - ./var/docker/controlesr/vhosts/heberg/subdomains/$sousDomaine/db:/
 
 docker-compose up -d
 
+echo "" >> /var/docker/controlesr/bind/bind/etc/heberg.projet.db
 echo "$sousDomaine A 192.168.1.40" >> /var/docker/controlesr/bind/bind/etc/heberg.projet.db
 
 rm /var/docker/controlesr/install/docker-compose.yml
