@@ -1,7 +1,6 @@
 version: '3.1'
 
 services:
-
   nginx:
     image: nginx
     restart: always
@@ -9,27 +8,27 @@ services:
       - fpm-ext7-0-8
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - ./nginx/enabled:/etc/nginx/conf.d
       - ./nginx/snippets:/nginx/snippets
       - ./nginx/certificates:/nginx/certificates
-    networks:
-      - monres
-
+    volumes_from:
+      - data
+      
   fpm-ext7-0-8:
     build:
       context: ./dockerfiles
       dockerfile: php-7-0-8-fpm-ext-alpine.Dockerfile
     restart: always
+    volumes_from:
+      - data
 
   db:
-    image: mariadb
+    image: harianto/mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: example
-      DB_USER: test1
-      DB_PASSWORD: test1
-      DB_NAME: test1
+      MYSQL_ROOT_PASSWORD: root
     volumes:
       - ./db/storage:/var/lib/mysql
 
@@ -38,6 +37,8 @@ services:
     restart: always
     depends_on:
       - db
+    # ports:
+    #   - "8080:80"
 
   bind9:
     image: sameersbn/bind:9.16.1-20200524
@@ -48,10 +49,12 @@ services:
     - "10000:10000/tcp"
     volumes:
       - ./bind:/data
-    networks:
-      - monres
 
-networks:
-  monres:
+  data:
+    image: alpine:latest
+    command: echo "READY!!!"
+    volumes:
+      - ./vhosts:/vhosts
+      - ./tmp:/tmp
 
 
