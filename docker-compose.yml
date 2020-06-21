@@ -2,7 +2,7 @@ version: '2'
 
 services:
   nginx:
-    image: nginx:alpine
+    image: nginx
     restart: always
     links:
       - fpm-ext7-0-8
