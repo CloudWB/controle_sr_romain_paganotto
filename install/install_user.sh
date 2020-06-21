@@ -82,6 +82,8 @@ echo "	}" >> /var/docker/controlesr/nginx/enabled/$sousDomaine.conf
 echo "	include /nginx/snippets/php7.0.8-fpm-ext.conf;" >> /var/docker/controlesr/nginx/enabled/$sousDomaine.conf
 echo "}" >> /var/docker/controlesr/nginx/enabled/$sousDomaine.conf
 
+cp /var/docker/controlesr/install/subDomains/index.php /var/docker/controlesr/vhosts/heberg/subdomains/$sousDomaine/index.php
+
 docker-compose exec nginx nginx -t && docker-compose restart nginx
 
 echo "Voilà !"
