@@ -1,11 +1,13 @@
-version: '3.7'
+version: '3.1'
 
 services:
-  proftpd:
-    image: kibatic/proftpd
-    network_mode: "host"
-    restart: unless-stopped
+  db:
+    image: mariadb
+    restart: always
     environment:
-      FTP_LIST: "romain:1234"
+      MYSQL_ROOT_PASSWORD: example
+      DB_USER: test1
+      DB_PASSWORD: test1
+      DB_NAME: test1
     volumes:
-      - "/var/docker/controlesr/vhosts/heberg/httpdocs:/home/romain"
+      - ./db/storage:/var/lib/mysql
