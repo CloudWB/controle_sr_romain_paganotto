@@ -9,10 +9,10 @@ sousDomaine="$3"
 users=$(cut -d ':' -f 1 /etc/passwd)
 
 #on boucle sur tout les utilisateurs
-for user in users ; do
-	if [ "$user" + "$login" ] ; then
+for user in $users ; do
+	if [ "$user" = "$login" ] ; then
 		echo "[ERREUR] L'utilisateur existe déjà."
-		exit 1
+		exit
 	fi
 done
 
@@ -20,19 +20,19 @@ done
 #on évite que le login soit identique au mdp
 if [ "$login" = "$password" ] ; then
 	echo "[ERREUR] Votre mot de passe est identique à votre mot de passe."
-	exit 1
+	exit
 
 #on verifie que le mot de passe soit nul
 elif [ -z "$password" ] ; then
 	echo "[ERREUR] Votre mot de passe est nul."
-	exit 1
+	exit
 fi
 
 #on vérifie que maintenant le nom du sous domaine n'existe pas
 for FILE in /var/docker/controlesr/vhosts/heberg/subdomains/* ; do
 	if [ "/var/docker/controlesr/vhosts/heberg/subdomains/$sousDomaine" = "$FILE" ] ; then
 		echo "[ERREUR] Le nom du sous domaine existe déjà."
-		exit 1
+		exit
 	fi
 done
 
