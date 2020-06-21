@@ -13,10 +13,10 @@ services:
       - ./nginx/enabled:/etc/nginx/conf.d
       - ./nginx/snippets:/nginx/snippets
       - ./nginx/certificates:/nginx/certificates
-    volumes_from:
-      - data
     networks:
       - monres
+    volumes_from:
+      - data
       
   fpm-ext7-0-8:
     build:
