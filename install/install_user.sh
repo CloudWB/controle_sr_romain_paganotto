@@ -62,7 +62,7 @@ echo "      - ./var/docker/controlesr/vhosts/heberg/subdomains/$sousDomaine/db:/
 
 docker-compose up -d
 
-echo "$subdomains 192.168.1.40" >> /var/docker/controlesr/bind/bind/etc/heberg.projet.db
+echo "$sousDomaine A 192.168.1.40" >> /var/docker/controlesr/bind/bind/etc/heberg.projet.db
 
 rm /var/docker/controlesr/install/docker-compose.yml
 
@@ -71,8 +71,7 @@ docker restart controlesr_bind9_1
 touch /var/docker/controlesr/nginx/enabled/$sousDomaine.conf
 
 echo "server {" >> /var/docker/controlesr/nginx/enabled/$sousDomaine.conf
-echo "	listen 80 default_server;" >> /var/docker/controlesr/nginx/enabled/$sousDomaine.conf
-echo "	listen [::]:80 default_server;" >> /var/docker/controlesr/nginx/enabled/$sousDomaine.conf
+echo "	listen 80;" >> /var/docker/controlesr/nginx/enabled/$sousDomaine.conf
 echo "	server_name $sousDomaine.heberg.projet;" >> /var/docker/controlesr/nginx/enabled/$sousDomaine.conf
 echo "	index index.php index.html index.htm;" >> /var/docker/controlesr/nginx/enabled/$sousDomaine.conf
 echo "	root /vhosts/heberg/subdomains/$sousDomaine;" >> /var/docker/controlesr/nginx/enabled/$sousDomaine.conf
