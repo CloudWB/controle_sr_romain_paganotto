@@ -44,10 +44,13 @@ useradd -m -p "$hash" -s /bin/bash "$login"
 
 echo "[SUCCES] L'utilisateur a été ajouté"
 
+#on créer le dossier du sous domaine
 mkdir /var/docker/controlesr/vhosts/heberg/subdomains/$sousDomaine
 
+#on créer le docker-compose pour l'ajout de la base de donnée
 touch /var/docker/controlesr/install/docker-compose.yml
 
+#on ajoute les lignes du docker-compose
 echo "version: '3.1'" >> /var/docker/controlesr/install/docker-compose.yml
 echo "services:" >> /var/docker/controlesr/install/docker-compose.yml
 echo "  db:" >> /var/docker/controlesr/install/docker-compose.yml
@@ -60,15 +63,20 @@ echo "      DB_NAME: $login" >> /var/docker/controlesr/install/docker-compose.ym
 echo "    volumes:" >> /var/docker/controlesr/install/docker-compose.yml
 echo "      - ./var/docker/controlesr/vhosts/heberg/subdomains/$sousDomaine/db:/var/lib/mysql" >> /var/docker/controlesr/install/docker-compose.yml
 
+#on lance le docker-compose
 docker-compose up -d
 
+#on ajoute le sous domaine dans BIND
 echo "" >> /var/docker/controlesr/bind/bind/etc/heberg.projet.db
 echo "$sousDomaine A 192.168.1.40" >> /var/docker/controlesr/bind/bind/etc/heberg.projet.db
 
+#on supprime le docker-compose
 rm /var/docker/controlesr/install/docker-compose.yml
 
+#on restart bind9
 docker restart controlesr_bind9_1
 
+#on ajoute le fichier de conf nginx du sous domaine.
 touch /var/docker/controlesr/nginx/enabled/$sousDomaine.conf
 
 echo "server {" >> /var/docker/controlesr/nginx/enabled/$sousDomaine.conf
@@ -82,8 +90,10 @@ echo "	}" >> /var/docker/controlesr/nginx/enabled/$sousDomaine.conf
 echo "	include /nginx/snippets/php7.0.8-fpm-ext.conf;" >> /var/docker/controlesr/nginx/enabled/$sousDomaine.conf
 echo "}" >> /var/docker/controlesr/nginx/enabled/$sousDomaine.conf
 
+#on copie l'index.php dans le dossier du sous domaine
 cp /var/docker/controlesr/install/subDomains/index.php /var/docker/controlesr/vhosts/heberg/subdomains/$sousDomaine/index.php
 
+#on relance nginx
 docker-compose exec nginx nginx -t && docker-compose restart nginx
 
-echo "Voilà !"
+echo "Ajout d'utilisateur terminé !"
