@@ -1,0 +1,5 @@
+zone "heberg.projet" {
+	type master;
+	file "/data/bind/etc/heberg.projet.db";
+	notify no;
+};
