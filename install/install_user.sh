@@ -76,7 +76,7 @@ echo "	server_name $sousDomaine.heberg.projet;" >> /var/docker/controlesr/nginx/
 echo "	index index.php index.html index.htm;" >> /var/docker/controlesr/nginx/enabled/$sousDomaine.conf
 echo "	root /vhosts/heberg/subdomains/$sousDomaine;" >> /var/docker/controlesr/nginx/enabled/$sousDomaine.conf
 echo "	location / {" >> /var/docker/controlesr/nginx/enabled/$sousDomaine.conf
-echo "		try_files $uri $uri/ /index.php$is_args$args =404;" >> /var/docker/controlesr/nginx/enabled/$sousDomaine.conf
+echo "		try_files "\$uri" "\$uri"/ /index.php"\$is_args""\$args" =404;" >> /var/docker/controlesr/nginx/enabled/$sousDomaine.conf
 echo "	}" >> /var/docker/controlesr/nginx/enabled/$sousDomaine.conf
 echo "	include /nginx/snippets/php7.0.8-fpm-ext.conf;" >> /var/docker/controlesr/nginx/enabled/$sousDomaine.conf
 echo "}" >> /var/docker/controlesr/nginx/enabled/$sousDomaine.conf
