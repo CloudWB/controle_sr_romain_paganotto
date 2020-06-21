@@ -1,0 +1,11 @@
+version: '3.7'
+
+services:
+  proftpd:
+    image: kibatic/proftpd
+    network_mode: "host"
+    restart: unless-stopped
+    environment:
+      FTP_LIST: "romain:1234"
+    volumes:
+      - "/var/docker/controlesr/vhosts/heberg/httpdocs:/home/romain"
