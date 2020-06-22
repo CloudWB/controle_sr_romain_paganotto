@@ -64,36 +64,11 @@ useradd -m -p "$hash" -s /bin/bash "$login"
 #on créer le dossier du sous domaine
 mkdir /var/docker/controlesr/vhosts/heberg/subdomains/$sousDomaine
 
-#on créer le docker-compose pour l'ajout de la base de donnée
-touch /var/docker/controlesr/install/docker-compose.yml
-
-#on ajoute les lignes du docker-compose
-echo "version: '3.7'" >> /var/docker/controlesr/install/docker-compose.yml
-echo "services:" >> /var/docker/controlesr/install/docker-compose.yml
-echo "  db:" >> /var/docker/controlesr/install/docker-compose.yml
-echo "    image: mariadb" >> /var/docker/controlesr/install/docker-compose.yml
-echo "    restart: always" >> /var/docker/controlesr/install/docker-compose.yml
-echo "    container_name: $login" >> /var/docker/controlesr/install/docker-compose.yml
-echo "    environment:" >> /var/docker/controlesr/install/docker-compose.yml
-echo "      MYSQL_USER: $login" >> /var/docker/controlesr/install/docker-compose.yml
-echo "      MYSQL_PASSWORD: $password" >> /var/docker/controlesr/install/docker-compose.yml
-echo "      MYSQL_DATABASE: $login" >> /var/docker/controlesr/install/docker-compose.yml
-echo "    volumes:" >> /var/docker/controlesr/install/docker-compose.yml
-echo "      - ./var/docker/controlesr/vhosts/heberg/subdomains/$sousDomaine/db:/var/lib/mysql" >> /var/docker/controlesr/install/docker-compose.yml
-echo "  dbadmin:" >> /var/docker/controlesr/install/docker-compose.yml
-echo "    image: phpmyadmin/phpmyadmin" >> /var/docker/controlesr/install/docker-compose.yml
-echo "    restart: always" >> /var/docker/controlesr/install/docker-compose.yml
-echo "    depends_on:" >> /var/docker/controlesr/install/docker-compose.yml
-echo "      - db" >> /var/docker/controlesr/install/docker-compose.yml
-#on lance le docker-compose
-docker-compose up -d
+docker exec -it controlesr_db_1 sh -c 'exec mysql -uroot -p"root"'
 
 #on ajoute le sous domaine dans BIND
 echo "" >> /var/docker/controlesr/bind/bind/etc/heberg.projet.db
 echo "$sousDomaine A 0.0.0.0" >> /var/docker/controlesr/bind/bind/etc/heberg.projet.db
-
-#on supprime le docker-compose
-rm /var/docker/controlesr/install/docker-compose.yml
 
 #on restart bind9
 docker restart controlesr_bind9_1
