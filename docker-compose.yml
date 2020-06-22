@@ -25,10 +25,12 @@ services:
       - data
 
   db:
-    image: harianto/mysql
+    image: mariadb:latest
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
+      DB_USER: romain
+      DB_PASSWORD: lol
     volumes:
       - ./db/storage:/var/lib/mysql
 
