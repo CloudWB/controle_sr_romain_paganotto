@@ -64,6 +64,7 @@ useradd -m -p "$hash" -s /bin/bash "$login"
 #on créer le dossier du sous domaine
 mkdir /var/docker/controlesr/vhosts/heberg/subdomains/$sousDomaine
 
+#on laisse la possibilité à l'administrateur de créer ou non une base de données (ctrl + c pour continuer le script)
 docker exec -it controlesr_db_1 sh -c 'exec mysql -uroot -p"root"'
 
 #on ajoute le sous domaine dans BIND
