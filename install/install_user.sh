@@ -51,11 +51,12 @@ mkdir /var/docker/controlesr/vhosts/heberg/subdomains/$sousDomaine
 touch /var/docker/controlesr/install/docker-compose.yml
 
 #on ajoute les lignes du docker-compose
-echo "version: '3.1'" >> /var/docker/controlesr/install/docker-compose.yml
+echo "version: '2'" >> /var/docker/controlesr/install/docker-compose.yml
 echo "services:" >> /var/docker/controlesr/install/docker-compose.yml
 echo "  db:" >> /var/docker/controlesr/install/docker-compose.yml
-echo "    image: mariadb" >> /var/docker/controlesr/install/docker-compose.yml
+echo "    image: harianto/mysql" >> /var/docker/controlesr/install/docker-compose.yml
 echo "    restart: always" >> /var/docker/controlesr/install/docker-compose.yml
+echo "    container_name: controlesr_$login" >> /var/docker/controlesr/install/docker-compose.yml
 echo "    environment:" >> /var/docker/controlesr/install/docker-compose.yml
 echo "      DB_USER: $login" >> /var/docker/controlesr/install/docker-compose.yml
 echo "      DB_PASSWORD: $password" >> /var/docker/controlesr/install/docker-compose.yml
