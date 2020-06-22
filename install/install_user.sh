@@ -5,6 +5,11 @@ login="$1"
 password="$2"
 sousDomaine="$3"
 
+#on verifie le nombre d'argument
+if [ "$#" -ne 3 ] ; then
+	echo "[ERREUR] ./install_user.sh #user #mdp #nomSousDomaine"
+fi
+
 #on vérfie que l'utilisateur n'existe pas
 users=$(cut -d ':' -f 1 /etc/passwd)
 
@@ -42,8 +47,6 @@ hash=$(mkpasswd -m sha-512 "$password")
 #on ajoute l'utilisateur
 useradd -m -p "$hash" -s /bin/bash "$login"
 
-echo "[SUCCES] L'utilisateur a été ajouté"
-
 #on créer le dossier du sous domaine
 mkdir /var/docker/controlesr/vhosts/heberg/subdomains/$sousDomaine
 
@@ -51,12 +54,11 @@ mkdir /var/docker/controlesr/vhosts/heberg/subdomains/$sousDomaine
 touch /var/docker/controlesr/install/docker-compose.yml
 
 #on ajoute les lignes du docker-compose
-echo "version: '2'" >> /var/docker/controlesr/install/docker-compose.yml
+echo "version: '3.7'" >> /var/docker/controlesr/install/docker-compose.yml
 echo "services:" >> /var/docker/controlesr/install/docker-compose.yml
 echo "  db:" >> /var/docker/controlesr/install/docker-compose.yml
-echo "    image: harianto/mysql" >> /var/docker/controlesr/install/docker-compose.yml
+echo "    image: mariadb" >> /var/docker/controlesr/install/docker-compose.yml
 echo "    restart: always" >> /var/docker/controlesr/install/docker-compose.yml
-echo "    container_name: controlesr_$login" >> /var/docker/controlesr/install/docker-compose.yml
 echo "    environment:" >> /var/docker/controlesr/install/docker-compose.yml
 echo "      DB_USER: $login" >> /var/docker/controlesr/install/docker-compose.yml
 echo "      DB_PASSWORD: $password" >> /var/docker/controlesr/install/docker-compose.yml
@@ -97,4 +99,13 @@ cp /var/docker/controlesr/install/subDomains/index.php /var/docker/controlesr/vh
 #on relance nginx
 docker-compose exec nginx nginx -t && docker-compose restart nginx
 
-echo "Ajout d'utilisateur terminé !"
+#on ajoute un accès ftp à l'utilisateur
+sed -i -e "s/r0m41nUser/$login/g" /var/docker/controlesr/install/ftp/docker-compose.yml
+sed -i -e "s/r0m41nMdp/$password;r0m41nUser:r0m41nMdp/g" /var/docker/controlesr/install/ftp/docker-compose.yml
+echo "      - \"/var/docker/controlesr/vhosts/heberg/subdomains/$sousDomaine:/home/$login\"" >> /var/docker/controlesr/install/ftp/docker-compose.yml
+
+#on lance l'installation du container FTP
+chmod +x ./ftp/start_ftp.sh
+./ftp/start_ftp.sh
+
+echo "[SUCCES] L'utilisateur a été rajouté !"
