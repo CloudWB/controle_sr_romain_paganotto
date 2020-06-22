@@ -27,8 +27,6 @@ services:
   db:
     image: mariadb
     restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
     volumes:
       - ./db/storage:/var/lib/mysql
 
