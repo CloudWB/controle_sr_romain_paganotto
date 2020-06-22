@@ -9,6 +9,13 @@
 # ATTENTION :  Ce script peut s'executer autant de fois que vous devez ajouter des utilisateurs.
 #              Executer la solution avec la commande suivante dans le dossier "install" : ./install_user.sh <user> <mdp> <nomSousDomaine>
 
+# Base de données : Si vous voulez créer la base de données, voici les commandes à éffectué :
+# - Créer une base de données :                    CREATE DATABASE changemoi;
+# - Créer un utilisateur :                         CREATE user "changemoi";
+# - Créer un mot de passe :                        SET password FOR "nomuser" = password('mdp');
+# - Accorder l'utilisateur à la base de données :  GRANT ALL ON nomuser.* TO "nomdb";
+# Puis faire un CTRL + C pour continuer la fin du script d'installation d'un utilisateur
+
 ###############################################################################
 #                                  SERVICES                                   #
 ###############################################################################
