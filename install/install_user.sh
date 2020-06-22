@@ -105,8 +105,13 @@ sed -i -e "s/r0m41nUser/$login/g" /var/docker/controlesr/install/ftp/docker-comp
 sed -i -e "s/r0m41nMdp/$password;r0m41nUser:r0m41nMdp/g" /var/docker/controlesr/install/ftp/docker-compose.yml
 echo "      - \"/var/docker/controlesr/vhosts/heberg/subdomains/$sousDomaine:/home/$login\"" >> /var/docker/controlesr/install/ftp/docker-compose.yml
 
-#on lance l'installation du container FTP
-chmod +x /var/docker/controlesr/install/ftp/start_ftp.sh
-./var/docker/controlesr/install/ftp/start_ftp.sh
+#on deplace le docker compose de la FTP.
+cp /var/docker/controlesr/install/ftp/docker-compose.yml /var/docker/controlesr/install/docker-compose.yml
+
+#on lance le container
+docker-compose up -d
+
+#on supprime le docker compose
+rm /var/docker/controlesr/install/docker-compose.yml
 
 echo "[SUCCES] L'utilisateur a été rajouté !"
