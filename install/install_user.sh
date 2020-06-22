@@ -100,6 +100,10 @@ cp /var/docker/controlesr/install/subDomains/index.php /var/docker/controlesr/vh
 #on relance nginx
 docker-compose exec nginx nginx -t && docker-compose restart nginx
 
+#on arrete et supprimer le container ftp
+docker stop install_proftpd_1
+docker rm install_proftpd_1
+
 #on ajoute un accès ftp à l'utilisateur
 sed -i -e "s/r0m41nUser/$login/g" /var/docker/controlesr/install/ftp/docker-compose.yml
 sed -i -e "s/r0m41nMdp/$password;r0m41nUser:r0m41nMdp/g" /var/docker/controlesr/install/ftp/docker-compose.yml
