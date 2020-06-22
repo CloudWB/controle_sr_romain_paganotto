@@ -75,12 +75,16 @@ echo "    image: mariadb" >> /var/docker/controlesr/install/docker-compose.yml
 echo "    restart: always" >> /var/docker/controlesr/install/docker-compose.yml
 echo "    container_name: $login" >> /var/docker/controlesr/install/docker-compose.yml
 echo "    environment:" >> /var/docker/controlesr/install/docker-compose.yml
-echo "      DB_USER: $login" >> /var/docker/controlesr/install/docker-compose.yml
-echo "      DB_PASSWORD: $password" >> /var/docker/controlesr/install/docker-compose.yml
-echo "      DB_NAME: $login" >> /var/docker/controlesr/install/docker-compose.yml
+echo "      MYSQL_USER: $login" >> /var/docker/controlesr/install/docker-compose.yml
+echo "      MYSQL_PASSWORD: $password" >> /var/docker/controlesr/install/docker-compose.yml
+echo "      MYSQL_DATABASE: $login" >> /var/docker/controlesr/install/docker-compose.yml
 echo "    volumes:" >> /var/docker/controlesr/install/docker-compose.yml
 echo "      - ./var/docker/controlesr/vhosts/heberg/subdomains/$sousDomaine/db:/var/lib/mysql" >> /var/docker/controlesr/install/docker-compose.yml
-
+echo "  dbadmin:" >> /var/docker/controlesr/install/docker-compose.yml
+echo "    image: phpmyadmin/phpmyadmin" >> /var/docker/controlesr/install/docker-compose.yml
+echo "    restart: always" >> /var/docker/controlesr/install/docker-compose.yml
+echo "    depends_on:" >> /var/docker/controlesr/install/docker-compose.yml
+echo "      - db" >> /var/docker/controlesr/install/docker-compose.yml
 #on lance le docker-compose
 docker-compose up -d
 
