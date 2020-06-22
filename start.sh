@@ -49,6 +49,6 @@ mv /var/docker/controlesr/install/bind/heberg.projet.db /var/docker/controlesr/b
 
 #on restart notre container controlesr_bind9_1 pour actualiser notre nouveau dns heberg.projet
 docker restart controlesr_bind9_1
-echo "nameserver 192.168.1.41" > /etc/resolv.conf
+echo "nameserver $ipMachine" > /etc/resolv.conf
 
 echo "Votre solution est maintenant lancé et fonctionnel !"
