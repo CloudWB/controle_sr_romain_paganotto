@@ -60,6 +60,7 @@ echo "services:" >> /var/docker/controlesr/install/docker-compose.yml
 echo "  db:" >> /var/docker/controlesr/install/docker-compose.yml
 echo "    image: mariadb" >> /var/docker/controlesr/install/docker-compose.yml
 echo "    restart: always" >> /var/docker/controlesr/install/docker-compose.yml
+echo "    container_name: $login" >> /var/docker/controlesr/install/docker-compose.yml
 echo "    environment:" >> /var/docker/controlesr/install/docker-compose.yml
 echo "      DB_USER: $login" >> /var/docker/controlesr/install/docker-compose.yml
 echo "      DB_PASSWORD: $password" >> /var/docker/controlesr/install/docker-compose.yml
@@ -72,7 +73,7 @@ docker-compose up -d
 
 #on ajoute le sous domaine dans BIND
 echo "" >> /var/docker/controlesr/bind/bind/etc/heberg.projet.db
-echo "$sousDomaine A 192.168.1.41" >> /var/docker/controlesr/bind/bind/etc/heberg.projet.db
+echo "$sousDomaine A 0.0.0.0" >> /var/docker/controlesr/bind/bind/etc/heberg.projet.db
 
 #on supprime le docker-compose
 rm /var/docker/controlesr/install/docker-compose.yml

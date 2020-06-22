@@ -6,5 +6,5 @@ $TTL 604800
 	2419200		; Expire
 	604800 ) 	; Negative Cache TTL
 @ IN NS heberg.projet.
-@ IN A 192.168.1.40
-dbadmin A 192.168.1.40
+@ IN A 0.0.0.0
+dbadmin A 0.0.0.0
