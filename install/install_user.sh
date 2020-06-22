@@ -72,7 +72,7 @@ docker-compose up -d
 
 #on ajoute le sous domaine dans BIND
 echo "" >> /var/docker/controlesr/bind/bind/etc/heberg.projet.db
-echo "$sousDomaine A 192.168.1.40" >> /var/docker/controlesr/bind/bind/etc/heberg.projet.db
+echo "$sousDomaine A 192.168.1.41" >> /var/docker/controlesr/bind/bind/etc/heberg.projet.db
 
 #on supprime le docker-compose
 rm /var/docker/controlesr/install/docker-compose.yml

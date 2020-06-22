@@ -11,5 +11,5 @@ echo "Vous avez bien déplacer les fichiers : named.conf.local, heberg.projet.db
 
 #on restart notre container controlesr_bind9_1 pour actualiser notre nouveau dns heberg.projet
 docker restart controlesr_bind9_1
-echo "nameserver 192.168.1.40" > /etc/resolv.conf
+echo "nameserver 192.168.1.41" > /etc/resolv.conf
 echo "Restart effectué, votre dns est activé. Veuillez vérifier avec la commande : dig @localhost heberg.projet"
