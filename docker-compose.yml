@@ -29,6 +29,9 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
+      DB_USER: test1
+      DB_PASSWORD: test1
+      DB_NAME: test1
     volumes:
       - ./db/storage:/var/lib/mysql
 
