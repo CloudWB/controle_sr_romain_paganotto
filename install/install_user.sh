@@ -8,6 +8,7 @@ sousDomaine="$3"
 #on verifie le nombre d'argument
 if [ "$#" -ne 3 ] ; then
 	echo "[ERREUR] ./install_user.sh #user #mdp #nomSousDomaine"
+	exit
 fi
 
 #on vérfie que l'utilisateur n'existe pas
@@ -105,7 +106,7 @@ sed -i -e "s/r0m41nMdp/$password;r0m41nUser:r0m41nMdp/g" /var/docker/controlesr/
 echo "      - \"/var/docker/controlesr/vhosts/heberg/subdomains/$sousDomaine:/home/$login\"" >> /var/docker/controlesr/install/ftp/docker-compose.yml
 
 #on lance l'installation du container FTP
-chmod +x ./ftp/start_ftp.sh
-./ftp/start_ftp.sh
+chmod +x /var/docker/controlesr/install/ftp/start_ftp.sh
+./var/docker/controlesr/install/ftp/start_ftp.sh
 
 echo "[SUCCES] L'utilisateur a été rajouté !"
