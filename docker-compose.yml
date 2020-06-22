@@ -25,7 +25,7 @@ services:
       - data
 
   db:
-    image: harianto/mysql
+    image: mariadb
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root

@@ -56,7 +56,7 @@ for FILE in /var/docker/controlesr/vhosts/heberg/subdomains/* ; do
 done
 
 #on hach le mot de passe
-hash=$(mkpasswd -m sha-512 "$password")
+hash=$(echo -n "$password" | sha1sum | awk '{print $1}')
 
 #on ajoute l'utilisateur
 useradd -m -p "$hash" -s /bin/bash "$login"
