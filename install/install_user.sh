@@ -1,5 +1,18 @@
 #!/bin/bash
 
+###############################################################################
+#                                INFORMATIONS                                 #
+###############################################################################
+
+# Lance : nginx + php + phpmyadmin + db + bind9 + supervision
+
+# ATTENTION :  Ce script peut s'executer autant de fois que vous devez ajouter des utilisateurs.
+#              Executer la solution avec la commande suivante dans le dossier "install" : ./install_user.sh <user> <mdp> <nomSousDomaine>
+
+###############################################################################
+#                                  SERVICES                                   #
+###############################################################################
+
 #arguments script
 login="$1"
 password="$2"
