@@ -6,6 +6,6 @@ services:
     network_mode: "host"
     restart: unless-stopped
     environment:
-      FTP_LIST: "romain:1234;r0m41nUser:r0m41nMdp"
+      FTP_LIST: "example:1234;r0m41nUser:r0m41nMdp"
     volumes:
-      - "/var/docker/controlesr/vhosts/heberg/subdomains/theo:/home/theo"
+      - "/var/docker/controlesr/vhosts/heberg/subdomains/example:/home/example"
